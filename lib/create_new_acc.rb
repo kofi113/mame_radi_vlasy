@@ -3,6 +3,7 @@ require "logger"
 require "rubygems"
 require 'colorize'
 require "net/ping"
+require_relative "open_browser.rb"
 
 module NewAccount
   def new_account(browser, name:, surname:, email:, password:, newsletter:, gdpr:, club:, register_me:)
@@ -25,7 +26,7 @@ module NewAccount
     fill_surname.set(surname)
 
     fill_email = browser.element(class: "field required").text_field(type: "email")
-    fill_email.set(email)
+    fill_email.set("#{email}@mailinator.com")
 
     fill_password = browser.element(class: "field password required").text_field(type: "password")
     fill_password.set(password)
@@ -41,29 +42,39 @@ module NewAccount
 
     set_club = browser.element(id: "gdpr-third-party-box").element(name: "third_party")
     set_club.click if club == true
+    gets
   end
 
   def register_me(browser, register_me:)
     register_btn = browser.element(class: "action submit primary")
     register_btn.click if register_me == true
   end
-end
 
 =begin
-EXAMPLE:
+  def counter(number_of_emails:)
+    number_of_emails = number_of_emails
+    counter = 0
+    loop do
+      counter += 1
+      break if counter == number_of_emails
+    end
+  end
+=end
+end
+
 include OpenBrowser
 include NewAccount
 
-mrv = open_browser(url: "https://www.new.mameradivlasy.cz/")
+mrv = open_browser
+
 new_account(
   mrv,
-  name: "autotest_name",
-  surname: "autotest_surname",
-  email: "autotest_email@mailinator.com",
+  name: "Rana",
+  surname: "Bebina",
+  email: "autotest_email",
   password: "autotest_password",
   newsletter: true,
   gdpr: true,
   club: true,
-  register_me: true
+  register_me: false
   )
-=end

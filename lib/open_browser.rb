@@ -10,7 +10,7 @@ if $log.nil?
 end
 
 module OpenBrowser
-  def open_browser(url:, screenshots_dir: File.join(Dir.pwd, "screenshots"))
+  def open_browser(url: "www.new.mameradivlasy.cz", screenshots_dir: File.join(Dir.pwd, "screenshots"))
     browser = Watir::Browser.new :chrome
     browser.goto(url)
     p1 = Net::Ping::HTTP.new(url)
