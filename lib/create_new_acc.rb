@@ -6,7 +6,7 @@ require "net/ping"
 require_relative "open_browser.rb"
 
 module NewAccount
-  def new_account(browser, name:, surname:, email:, password:, newsletter:, gdpr:, club:, register_me:)
+  def new_account(browser, name: "testname", surname: "testsurname", email: "testmail", password: "test", newsletter: true, gdpr: true, club: true, register_me: true)
     click_registration(browser)
     fill_in_details(browser, name: name, surname: surname, email: email, password: password, newsletter: newsletter, gdpr: gdpr, club: club)
     register_me(browser, register_me: register_me)
@@ -50,16 +50,15 @@ module NewAccount
     register_btn.click if register_me == true
   end
 
-=begin
-  def counter(number_of_emails:)
-    number_of_emails = number_of_emails
-    counter = 0
-    loop do
+
+  def counter(number_of_accounts)
+    email_fix = number_of_accounts.to_i
+    counter = 1
+    while counter <= number_of_accounts
+      puts counter
       counter += 1
-      break if counter == number_of_emails
     end
   end
-=end
 end
 
 include OpenBrowser
